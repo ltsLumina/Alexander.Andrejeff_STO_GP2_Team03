@@ -24,6 +24,7 @@ Assets/StreamingAssets/aa.meta
 ExportedObj/
 .consulo
 *.csproj
+*.sln
 *.unityproj
 *.suo
 *.tmp
@@ -57,3 +58,6 @@ PFH_Config.asset
 # .idea Workspace
 .idea/.idea.Alexander.Andrejeff_GP1_Team03/.idea/workspace.xml
 workspace.xml
+
+# Alex
+/Assets/Recovery/

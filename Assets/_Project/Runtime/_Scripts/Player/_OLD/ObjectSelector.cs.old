@@ -1,0 +1,184 @@
+using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class ObjectSelector : MonoBehaviour
+{
+    [Header("Manual Assign")]
+    [SerializeField] private PlayerInput playerInput;
+    
+    [Header("Settings")]
+    [SerializeField] private int maxRaySelectAllocHits = 10;
+    [SerializeField] private int initialMouseProjectionDistance = 10;
+    [SerializeField] private int maxMouseProjectionDistance = 20;
+    [SerializeField] private int minMouseProjectionDistance = 5;
+    [SerializeField] private float mouseProjectionScrollStep = 0.25f;
+    
+    
+    [Header("Auto Assigned anyways")]
+    [Tooltip("Defaults to Main Camera if null")][SerializeField] private Camera playerCamera;
+    [SerializeField] protected Transform grabPoint;
+    
+    // TEMP
+    protected GameObject selectedObject;
+    private float _mouseProjectionDistance;
+    
+    #region UNITY METHODS
+    private void Awake()
+    {
+        // Ensure playerCamera is assigned
+        if (playerCamera == null)
+        {
+            playerCamera = Camera.main;
+        }
+        
+        // Ensure grabJoint is assigned
+        if (grabPoint == null)
+        {
+            grabPoint = GameObject.FindGameObjectWithTag("GrabPoint").transform;
+        }
+        
+        // Initialize mouse projection distance
+        _mouseProjectionDistance = initialMouseProjectionDistance;
+        
+        playerInput.actions.Disable();
+        AssignInputs();
+        
+        OnAwakeSelectedObject();
+    }
+
+    private void OnDestroy()
+    {
+        UnAssignInputs();
+    }
+
+    private void Update()
+    {
+        UpdateGrabSelectedObject();
+        UpdateGrabPointPosition();
+    }
+
+    #endregion
+
+    #region INIT METHODS
+    private void AssignInputs()
+    {
+        playerInput.actions.Enable();
+        
+        var actionMap = playerInput.actions.FindActionMap("Player");
+        var selectAction = actionMap.FindAction("ObjectDrag");
+        selectAction.performed += OnSelectObject;
+        selectAction.canceled += OnDeselect;
+    }
+    
+    private void UnAssignInputs()
+    {
+        var actionMap = playerInput.actions.FindActionMap("Player");
+        var selectAction = actionMap.FindAction("ObjectDrag");
+        selectAction.performed -= OnSelectObject;
+        selectAction.canceled -= OnDeselect;
+        
+        playerInput.actions.Disable();
+    }
+    
+    #endregion
+    
+    #region UPDATE METHODS
+    
+    private void UpdateGrabSelectedObject()
+    {
+        if (selectedObject == null) return;
+        
+        Debug.Log(" Updating Selected Object: " + selectedObject.name);
+        OnUpdateSelectedObject();
+    }
+    
+    private void UpdateGrabPointPosition()
+    {
+        // Scroll to adjust projection distance
+        float scrollDelta = playerInput.actions.FindActionMap("Player").FindAction("Scroll").ReadValue<Vector2>().y;
+        _mouseProjectionDistance += scrollDelta * mouseProjectionScrollStep;
+        _mouseProjectionDistance = Mathf.Clamp(_mouseProjectionDistance, minMouseProjectionDistance, maxMouseProjectionDistance);
+        
+        // Follow mouse position
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = playerCamera.ScreenPointToRay(mousePosition);
+        
+        Vector3 projectedPoint = ray.origin + ray.direction * _mouseProjectionDistance;
+        
+        grabPoint.position = projectedPoint;
+    }
+    
+    #endregion
+    
+    #region INPUT METHODS
+    private void OnSelectObject(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("Clicked to Select Object");
+        Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        RaycastHit[] hits = new RaycastHit[maxRaySelectAllocHits];
+        int hitCount = Physics.RaycastNonAlloc(ray, hits);
+        Debug.Log($"Number of Hits: {hitCount}");
+
+        for (int i = 0; i < hitCount; i++)
+        {
+            RaycastHit hit = hits[i];
+            
+            if(hit.collider == null) continue; // Safety check
+            
+            GameObject hitObject = hit.collider.gameObject;
+
+            if (hitObject == null) continue; // Safety check
+            if(hitObject == selectedObject) continue; // Skip if already selected
+            
+            // Validate hitObject (It has to have the "GrabPiece" tag)
+            if (!hitObject.CompareTag("GrabPiece"))
+            {
+                continue;
+            }
+            
+            selectedObject = hitObject;
+            Debug.Log($"Selected Object: {selectedObject.name}");
+
+            OnSelectedObject();
+            
+            break; // Exit after selecting the first valid object
+        }
+    }
+    
+    private void OnDeselect(InputAction.CallbackContext ctx)
+    {
+        Debug.Log("Deselected Object");
+        
+        // Detach the selected object from the grab point
+        if (selectedObject != null)
+        {
+            OnDeselectedObject();
+        }
+        
+        selectedObject = null;
+    }
+    
+    #endregion
+    
+    protected virtual void OnAwakeSelectedObject()
+    {
+        // Override in derived classes to handle object selection during Awake
+    }
+
+    protected virtual void OnSelectedObject()
+    {
+        // Override in derived classes to handle object selection
+    }
+    
+    protected virtual void OnDeselectedObject()
+    {
+        // Override in derived classes to handle object deselection
+    }
+    
+    protected virtual void OnUpdateSelectedObject()
+    {
+        // Override in derived classes to handle per-frame updates for the selected object
+    }
+}

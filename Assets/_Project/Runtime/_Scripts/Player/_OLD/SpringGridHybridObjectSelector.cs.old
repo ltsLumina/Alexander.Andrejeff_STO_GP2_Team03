@@ -1,0 +1,96 @@
+﻿using UnityEngine;
+
+public class SpringGridHybridObjectSelector : GridObjectSelector
+{
+    [SerializeField] private float springThresholdDistance = 1.0f;
+    
+    #region OVERRIDDEN METHODS
+    protected override void OnSelectedObject()
+    {
+        base.OnSelectedObject();
+        
+        Vector3 closestPoint = GetClosestAnchorPoint(grabPoint.position);
+        float distanceToClosestPoint = Vector3.Distance(grabPoint.position, closestPoint);
+        
+        if (distanceToClosestPoint <= springThresholdDistance)
+        {
+            // Snap to grid instead
+            return;
+        }
+        
+        
+    }
+
+    protected override void OnDeselectedObject()
+    {
+        base.OnDeselectedObject();
+        
+        SpringJoint springJoint = selectedObject.GetComponent<SpringJoint>();
+        if (springJoint != null)
+        {
+            Destroy(springJoint);
+        }
+    }
+
+    protected override void OnUpdateSelectedObject()
+    {
+        Vector3 closestPoint = GetClosestAnchorPoint(grabPoint.position);
+        float distanceToClosestPoint = Vector3.Distance(grabPoint.position, closestPoint);
+        
+        Debug.Log("Distance to closest point: " + distanceToClosestPoint);
+        
+        if (distanceToClosestPoint <= springThresholdDistance)
+        {
+            if (selectedObject != null)
+            {
+                // Reset physics when snapping to grid.
+                Rigidbody rb = selectedObject.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    transform.rotation = Quaternion.Euler(Vector3.zero);
+                    DetachSpringJoint();
+                }
+            }
+            
+            // Snap to grid instead
+            base.OnUpdateSelectedObject();
+        }
+        else
+        {
+            SpringJoint springJoint = selectedObject.GetComponent<SpringJoint>();
+            if (springJoint == null)
+            {
+                AttachSpringJoint();
+            }
+        }
+    }
+    
+    #endregion
+    
+    #region PRIVATE METHODS
+    
+    private void AttachSpringJoint()
+    {
+        SpringJoint springJoint = selectedObject.AddComponent<SpringJoint>();
+        springJoint.autoConfigureConnectedAnchor = false;
+        springJoint.connectedAnchor = grabPoint.position;
+        springJoint.spring = 200f;
+        springJoint.damper = 10f;
+        springJoint.connectedAnchor = Vector3.zero;
+        
+        springJoint.connectedBody = grabPoint.GetComponent<Rigidbody>();
+    }
+    
+    private void DetachSpringJoint()
+    {
+        SpringJoint springJoint = selectedObject.GetComponent<SpringJoint>();
+        if (springJoint != null)
+        {
+            Destroy(springJoint);
+        }
+    }
+    
+    #endregion
+}

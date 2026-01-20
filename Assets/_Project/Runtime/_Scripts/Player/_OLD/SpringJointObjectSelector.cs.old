@@ -1,0 +1,29 @@
+﻿using UnityEngine;
+
+public class SpringJointObjectSelector : ObjectSelector
+{
+    protected override void OnSelectedObject()
+    {
+        base.OnSelectedObject();
+        
+        SpringJoint springJoint = selectedObject.AddComponent<SpringJoint>();
+        springJoint.autoConfigureConnectedAnchor = false;
+        springJoint.connectedAnchor = grabPoint.position;
+        springJoint.spring = 200f;
+        springJoint.damper = 10f;
+        springJoint.connectedAnchor = Vector3.zero;
+        
+        springJoint.connectedBody = grabPoint.GetComponent<Rigidbody>();
+    }
+
+    protected override void OnDeselectedObject()
+    {
+        base.OnDeselectedObject();
+        
+        SpringJoint springJoint = selectedObject.GetComponent<SpringJoint>();
+        if (springJoint != null)
+        {
+            Destroy(springJoint);
+        }
+    }
+}

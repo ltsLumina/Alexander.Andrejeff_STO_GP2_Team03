@@ -1,0 +1,17 @@
+﻿using UnityEditor;
+using UnityEngine;
+
+[CustomEditor(typeof(GridObjectSelector))]
+public class EditorGridObjectSelector : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        
+        GridObjectSelector selector = (GridObjectSelector)target;
+        if (GUILayout.Button("Generate Anchor Points"))
+        {
+            selector.GenerateAnchorPoints();
+        }
+    }
+}

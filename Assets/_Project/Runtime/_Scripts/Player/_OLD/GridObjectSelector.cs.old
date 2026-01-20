@@ -1,0 +1,125 @@
+using System;
+using System.Collections.Generic;
+using NUnit.Framework;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class GridObjectSelector : ObjectSelector
+{
+    [SerializeField] private Vector2 gridSize = new Vector2(1, 1);
+    [SerializeField] private Vector2 gridResolution = new Vector2(10, 10);
+    
+    [SerializeField] private bool showAnchorPoints = true;
+    private List<Vector3> _anchorPoints = new List<Vector3>();
+    
+    #region OVERRIDDEN METHODS
+
+    protected override void OnAwakeSelectedObject()
+    {
+        base.OnAwakeSelectedObject();
+        
+        GenerateAnchorPoints();
+    }
+
+    protected override void OnSelectedObject()
+    {
+        base.OnSelectedObject();
+        
+        Debug.Log(" Selected Object: " + selectedObject.name);
+    }
+
+    protected override void OnDeselectedObject()
+    {
+        base.OnDeselectedObject();
+        
+        Debug.Log(" Deselected Object: " + selectedObject.name);
+    }
+
+    protected override void OnUpdateSelectedObject()
+    {
+        base.OnUpdateSelectedObject();
+        
+        selectedObject.transform.position = GetClosestAnchorPoint(grabPoint.position);
+    }
+
+    #endregion
+    
+    #region INIT METHODS
+    
+    public void GenerateAnchorPoints()
+    {
+        _anchorPoints.Clear();
+        
+        Vector3 origin = transform.position - new Vector3(gridSize.x / 2, 0, gridSize.y / 2);
+        Vector3 stepX = new Vector3(gridSize.x / gridResolution.x, 0, 0);
+        Vector3 stepZ = new Vector3(0, 0, gridSize.y / gridResolution.y);
+
+        for (int x = 0; x <= gridResolution.x; x++)
+        {
+            for (int z = 0; z <= gridResolution.y; z++)
+            {
+                Vector3 point = origin + stepX * x + stepZ * z;
+                
+                // Offset to center of cell
+                point += new Vector3(stepX.x / 2, 0, stepZ.z / 2);
+                
+                _anchorPoints.Add(point);
+            }
+        }
+    }
+    
+    #endregion
+    
+    #region HELPER METHODS
+    
+    protected Vector3 GetClosestAnchorPoint(Vector3 position)
+    {
+        Vector3 closestPoint = _anchorPoints[0];
+        float closestDistance = Vector3.Distance(position, closestPoint);
+
+        foreach (var point in _anchorPoints)
+        {
+            float distance = Vector3.Distance(position, point);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestPoint = point;
+            }
+        }
+
+        return closestPoint;
+    }
+    
+    #endregion
+    
+    
+    #region DEBUG METHODS
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        Vector3 origin = transform.position - new Vector3(gridSize.x / 2, 0, gridSize.y / 2);
+        Vector3 stepX = new Vector3(gridSize.x / gridResolution.x, 0, 0);
+        Vector3 stepZ = new Vector3(0, 0, gridSize.y / gridResolution.y);
+
+        for (int x = 0; x <= gridResolution.x; x++)
+        {
+            Gizmos.DrawLine(origin + stepX * x, origin + stepX * x + new Vector3(0, 0, gridSize.y));
+        }
+
+        for (int z = 0; z <= gridResolution.y; z++)
+        {
+            Gizmos.DrawLine(origin + stepZ * z, origin + stepZ * z + new Vector3(gridSize.x, 0, 0));
+        }
+        
+        if(showAnchorPoints)
+        {
+            foreach (var point in _anchorPoints)
+            {
+                Gizmos.DrawSphere(point, 0.05f);
+            }
+        }
+    }
+    #endregion
+}
