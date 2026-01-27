@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 #endregion
 
@@ -13,6 +14,7 @@ public class MenuAnimation : MonoBehaviour // WIP, prototype
 {
 	[SerializeField] float startY;
 	[SerializeField] float endY;
+	[SerializeField] Volume volume;
 	
 	Sequence hoverEnd;
 
@@ -23,6 +25,8 @@ public class MenuAnimation : MonoBehaviour // WIP, prototype
 	{
 		rectTransform = GetComponent<RectTransform>();
 		rectTransform.anchoredPosition = Vector2.up * startY;
+
+		volume.weight = 0;
 
 		StatusBarManager.Instance.Begin();
 	}
@@ -45,6 +49,7 @@ public class MenuAnimation : MonoBehaviour // WIP, prototype
 		if (hasHovered) return;
 		hasHovered = true;
 
+		DOTween.To(() => volume.weight, x => volume.weight = x, 1f, 1f).SetEase(Ease.InOutSine);
 		hoverStart = DOTween.Sequence();
 		hoverStart.SetLink(gameObject);
 		hoverStart.OnStart(() => button.interactable = false);
@@ -67,14 +72,11 @@ public class MenuAnimation : MonoBehaviour // WIP, prototype
 	}
 	public void Quit()
 	{
-		Application.Quit();
-		
-		#if UNITY_EDITOR
-		if (EditorUtility.DisplayDialog("Quit", "Application.Quit() called." 
-		                                        + "\nPress OK to exit play mode, or Cancel to stay in play mode.", "OK", "Cancel"))
-		{
+#if UNITY_EDITOR
+		if (EditorUtility.DisplayDialog("Quit", "Application.Quit() called." + "\nPress OK to exit play mode, or Cancel to stay in play mode.", "OK", "Cancel")) 
 			EditorApplication.isPlaying = false;
-		}
-		#endif
+#else
+			Application.Quit();
+#endif
 	}
 }

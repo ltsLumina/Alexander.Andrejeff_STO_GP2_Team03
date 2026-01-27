@@ -41,6 +41,11 @@ public class LoadingCanvas : PersistentCanvas
         
         OnLoadingStatusChanged += HandleLoadingStatusChanged;
     }
+    
+    private void OnDisable()
+    {
+        OnLoadingStatusChanged -= HandleLoadingStatusChanged;
+    }
 
     private void HandleLoadingStatusChanged(bool isLoading)
     {
