@@ -3,7 +3,10 @@ using Lumina.Essentials.Modules;
 using UnityEngine;
 #endregion
 
+namespace Lumina.Essentials.Modules.Singleton
+{
 [DefaultExecutionOrder(-2)]
+
 public class Singleton<T> : MonoBehaviour
 		where T : Component
 {
@@ -30,6 +33,9 @@ public class Singleton<T> : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// <remarks> <b>You must make sure to override this function if your derived class uses Awake!!</b> </remarks>
+	/// </summary>
 	protected virtual void Awake()
 	{
 		if (instance == null) instance = this as T;
@@ -71,6 +77,9 @@ public class SingletonPersistent<T> : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// <remarks> <b>You must make sure to override this function if your derived class uses Awake!!</b> </remarks>
+	/// </summary>
 	protected virtual void Awake()
 	{
 		if (instance == null)
@@ -87,4 +96,6 @@ public class SingletonPersistent<T> : MonoBehaviour
 	{
 		if (instance == this) instance = null;
 	}
+}
+
 }

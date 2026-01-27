@@ -6,7 +6,39 @@ using Object = UnityEngine.Object;
 
 public class PageUpdater : EditorWindow
 {
+	enum PageType
+	{
+		Level1,
+		Level2,
+		Level3,
+		Bloat
+	}
+
 	[MenuItem("Tools/Upload Page")]
+	static void Create()
+	{
+		var window = GetWindow<PageUpdater>();
+		window.titleContent = new GUIContent("Page Updater");
+		window.maxSize = new Vector2(300, 50);
+		window.minSize = window.maxSize;
+		window.Show();
+	}
+
+	static PageType pageType = PageType.Level1;
+	
+	void OnGUI()
+	{
+		using (new EditorGUILayout.VerticalScope())
+		{
+			pageType = (PageType)EditorGUILayout.EnumPopup("Select Page Type:", pageType);
+			
+			if (GUILayout.Button("Upload Page"))
+			{
+				UploadPage();
+			}
+		}
+	}
+	
 	static void UploadPage()
 	{
 		string path = EditorUtility.OpenFilePanelWithFilters("Select Page Image", "", new[] { "Image files", "png,jpg,jpeg", "All files", "*" });
@@ -21,7 +53,7 @@ public class PageUpdater : EditorWindow
 
 		if (pageImage != null)
 		{
-			var savedPath = EditorUtility.SaveFilePanel("Save Page Image", "Assets/_Project/Resources/Instruction Pages", "page_X.png", "png");
+			var savedPath = EditorUtility.SaveFilePanel("Save Page Image", $"Assets/_Project/Resources/Instruction Pages/{ObjectNames.NicifyVariableName(pageType.ToString())}", "page_X.png", "png");
 
 			if (!string.IsNullOrEmpty(savedPath) && pageImage is Texture2D texture2D)
 			{
@@ -53,7 +85,7 @@ public class PageUpdater : EditorWindow
 			{
 				EditorUtility.DisplayDialog("Success", "Page image uploaded successfully!", "OK");
 			}
-			else if (EditorUtility.DisplayDialog("Error", "Failed to save the page image.", "OK", "Why"))
+			else if (!EditorUtility.DisplayDialog("Error", "Failed to save the page image.", "OK", "Why"))
 			{
 				Application.OpenURL("https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2Fi8ltwa7ywxjc1.gif");
 			}
@@ -61,35 +93,4 @@ public class PageUpdater : EditorWindow
 	}
 
 	static Object pageImage;
-	
-	void OnGUI()
-	{
-		using (new EditorGUILayout.VerticalScope())
-		{
-			if (GUILayout.Button("Upload Page"))
-			{
-				string path = EditorUtility.OpenFilePanelWithFilters("Select Page Image", "Pictures", new[] { "Image files", "png,jpg,jpeg"});
-
-				if (!string.IsNullOrEmpty(path))
-				{
-					byte[] fileData = System.IO.File.ReadAllBytes(path);
-					Texture2D tex = new Texture2D(2, 2);
-					tex.LoadImage(fileData);
-					pageImage = tex;
-				}
-
-				if (pageImage != null)
-				{
-					var savedPath = EditorUtility.SaveFilePanel("Save Page Image", "Assets/_Project/Resources/Instruction Pages", "page_X.png", "png");
-
-					if (!string.IsNullOrEmpty(savedPath) && pageImage is Texture2D texture2D)
-					{
-						byte[] pngData = texture2D.EncodeToPNG();
-						System.IO.File.WriteAllBytes(savedPath, pngData);
-						AssetDatabase.Refresh();
-					}
-				}
-			}
-		}
-	}
 }

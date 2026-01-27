@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fe936bb1094ab2a57a8b2c2ea16831, type: 3}
+  m_Name: Advertisement
+  m_EditorClassIdentifier: Assembly-CSharp::AdModifier
+  prefab: {fileID: 5045793339538791324, guid: fc52ee0c51308774a8e81b32f3c0733e, type: 3}
+  maxInstances: 1
+  modifierChance: 0.5

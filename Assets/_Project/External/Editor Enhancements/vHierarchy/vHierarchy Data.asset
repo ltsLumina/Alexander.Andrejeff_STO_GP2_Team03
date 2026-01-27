@@ -16,6 +16,8 @@ MonoBehaviour:
     keys:
     - e58f7ff15a461da428bc82813e4a1304
     - 8f8026a07a427ab42bff4e45fb89973f
+    - fc52ee0c51308774a8e81b32f3c0733e
+    - 34f6c4eb0d429af4184d358ba6a2e6b2
     values:
     - goDatasByGlobalId:
         keys:
@@ -31,12 +33,69 @@ MonoBehaviour:
         values: []
     - goDatasByGlobalId:
         keys:
-        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-871341247-0
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-1679773902-0
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-584324628-0
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-6153451811100648777-6945282398989499215
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-1770156173-0
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-1408229158-0
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-1164876573-0
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-740444520-0
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-8243922917371444010-6945282398989499215
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-1250655316-0
+        - GlobalObjectId_V1-2-8f8026a07a427ab42bff4e45fb89973f-603739018-0
         values:
         - iColor: 0
+          icon: 
+        - iColor: 0
+          icon: 
+        - iColor: 1
+          icon: 
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: EventSystem Icon
+        - iColor: 0
           icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 1
+          icon: 
+        - iColor: 1
+          icon: PreMatCube
       goDatasByInstanceId:
-        keys: 8a96ffff
+        keys: 587d01002c7d0100d496ffff627d0100507d0100487d0100367d01006496ffff6826feffbed6fcff
         values:
         - iColor: 0
+          icon: 
+        - iColor: 0
+          icon: 
+        - iColor: 1
+          icon: 
+        - iColor: 0
+          icon: Camera Icon
+        - iColor: 0
+          icon: DirectionalLight Icon
+        - iColor: 0
+          icon: EventSystem Icon
+        - iColor: 0
           icon: Settings Icon
+        - iColor: 0
+          icon: Settings Icon
+        - iColor: 1
+          icon: 
+        - iColor: 1
+          icon: PreMatCube
+    - goDatasByGlobalId:
+        keys: []
+        values: []
+      goDatasByInstanceId:
+        keys: 
+        values: []
+    - goDatasByGlobalId:
+        keys: []
+        values: []
+      goDatasByInstanceId:
+        keys: 
+        values: []

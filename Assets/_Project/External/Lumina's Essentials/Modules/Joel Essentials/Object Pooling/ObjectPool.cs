@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 #endregion
 
+namespace Lumina.Essentials.Modules.ObjectPooling
+{
 public class ObjectPool : MonoBehaviour
 {
 	[SerializeField] GameObject objectPrefab;
@@ -91,4 +93,6 @@ public class ObjectPool : MonoBehaviour
 	/// </summary>
 	/// <returns></returns>
 	public GameObject GetPooledObjectPrefab() => objectPrefab;
+}
+
 }

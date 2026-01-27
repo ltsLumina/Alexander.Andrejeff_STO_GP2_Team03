@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 #endregion
 
+namespace Lumina.Essentials.Modules.ObjectPooling
+{
 public static class ObjectPoolManager
 {
 	static List<ObjectPool> objectPools = new ();
 
 	static Transform objectPoolParent;
+
+	// Dictionary to cache the object pools by prefab identifier for faster lookup.
+	readonly static Dictionary<string, ObjectPool> ObjectPoolLookup = new ();
 	static Transform ObjectPoolParent
 	{
 		get
@@ -28,15 +33,11 @@ public static class ObjectPoolManager
 		ObjectPoolLookup.Clear();
 	}
 
-	// Dictionary to cache the object pools by prefab identifier for faster lookup.
-	readonly static Dictionary<string, ObjectPool> ObjectPoolLookup = new ();
+	static string GetPrefabKey(GameObject prefab) =>
 
-	static string GetPrefabKey(GameObject prefab)
-	{
-		// If prefab is loaded from Resources, use its path if possible, otherwise fallback to name
-		// You may want to extend this for AssetBundles or addressables
-		return prefab.name;
-	}
+			// If prefab is loaded from Resources, use its path if possible, otherwise fallback to name
+			// You may want to extend this for AssetBundles or addressables
+			prefab.name;
 
 	/// <summary>
 	///     Adds an existing pool to the list of object pools.
@@ -100,9 +101,10 @@ public static class ObjectPoolManager
 	}
 
 	/// <summary>
-	/// Returns the object to its pool (deactivates it).
-	/// Literally just sets it inactive, but this is a bit more semantic.
+	///     Returns the object to its pool (deactivates it).
+	///     Literally just sets it inactive, but this is a bit more semantic.
 	/// </summary>
 	/// <param name="gameObject"> The object to return to the pool. </param>
 	public static void ReturnToPool(GameObject gameObject) => gameObject.SetActive(false);
+}
 }

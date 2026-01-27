@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b13d3409e68a24fb27781a8962c0b4, type: 3}
+  m_Name: Level21
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  LevelID: 21
+  SceneName: Level2-1
+  LevelName: Level2-1
+  Position: {x: 0, y: 0}
+  IsUnlocked: 0
+  useV1: 0
+  Width: 0
+  Height: 0
+  BoxCenterPos: {x: 0, y: 0}
+  useV2: 0
+  cornerPices:
+  - {x: 906.5, y: 791.4828, z: 23.437378}
+  - {x: 899.2, y: 963.3557, z: 29.370483}
+  - {x: 450.8, y: 939.36584, z: 43.77527}
+  - {x: 447.9, y: 618.5141, z: 23.102295}
+  - {x: 680.6, y: 630.74786, z: 14.955322}
+  - {x: 669.8, y: 787.20825, z: 27.971191}
+  useV3: 0
+  MaskArea: {fileID: 7245036302889178777, guid: db569b12b64a51e42834fb43601b8e47, type: 3}

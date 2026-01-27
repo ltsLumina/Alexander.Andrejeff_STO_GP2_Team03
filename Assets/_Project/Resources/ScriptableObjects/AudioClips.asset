@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abdab7893b4c9741a68edff903047f2, type: 3}
+  m_Name: AudioClips
+  m_EditorClassIdentifier: Assembly-CSharp::AudioClips
+  BackgroundMusic: {fileID: 8300000, guid: bc8cb1de3b7171246bc39d373583175a, type: 3}
+  MainMenuMusic: {fileID: 0}
+  GameEnd: {fileID: 0}
+  Select: {fileID: 0}
+  PaperCrunch: {fileID: 8300000, guid: 85803aa896343d448a85a798ab65b109, type: 3}
+  PaperRip: {fileID: 8300000, guid: 982553387a632594592df4536b274353, type: 3}
+  Attaching1: {fileID: 8300000, guid: 2140a10b4e76d9146a58589784734a8f, type: 3}
+  Attaching2: {fileID: 8300000, guid: b7a94527beb77be4cbc5def56a01c65c, type: 3}
+  Wipe1: {fileID: 8300000, guid: bac2e9a6848c8384cae99358f3cabc64, type: 3}
+  Wipe2: {fileID: 8300000, guid: cecadad99fcbed947be4ef204c44192b, type: 3}
+  ScreenWipe: {fileID: 8300000, guid: 06936ae9d66171541950cecfa06c28dd, type: 3}
+  Pickup1: {fileID: 8300000, guid: b88f08f4de0804c44b07c0cc99ccf5bd, type: 3}
+  Pickup2: {fileID: 8300000, guid: e17f85b8491c85046a4cbcc378863847, type: 3}
+  Pickup3: {fileID: 8300000, guid: c0f8a2d58f2ca5447abf44ca699c3962, type: 3}
+  Pickup4: {fileID: 8300000, guid: c993ff88644fc80498243c5e8ce17a99, type: 3}
+  FadeIn: {fileID: 0}
+  FadeOut: {fileID: 0}
+  EasterEgg: {fileID: 0}

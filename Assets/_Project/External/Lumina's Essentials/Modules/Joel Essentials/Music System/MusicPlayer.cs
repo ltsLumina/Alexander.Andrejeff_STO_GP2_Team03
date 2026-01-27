@@ -1,6 +1,7 @@
 #region
 using System.Collections;
 using UnityEngine;
+using Lumina.Essentials.Modules.Singleton;
 #endregion
 
 public class MusicPlayer : SingletonPersistent<MusicPlayer>

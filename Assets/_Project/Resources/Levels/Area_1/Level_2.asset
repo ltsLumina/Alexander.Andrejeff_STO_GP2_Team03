@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b13d3409e68a24fb27781a8962c0b4, type: 3}
+  m_Name: Level_2
+  m_EditorClassIdentifier: Assembly-CSharp::LevelData
+  LevelID: 12
+  SceneName: Level1-2
+  LevelName: Level 1-2
+  Position: {x: -354.1, y: -39.9}
+  IsUnlocked: 0
+  useV1: 0
+  Width: 274
+  Height: 403
+  BoxCenterPos: {x: -349.37, y: -49.62}

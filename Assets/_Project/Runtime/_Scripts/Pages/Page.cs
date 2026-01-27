@@ -1,16 +1,30 @@
 #region
-using System.Collections.Generic;
+using System;
 using JetBrains.Annotations;
+using Lumina.Essentials.Attributes;
 using Lumina.Essentials.Modules;
 using UnityEngine;
 using VInspector;
+using Random = UnityEngine.Random;
 #endregion
 
 public class Page : MonoBehaviour
 {
 	[SerializeField] Texture2D texture;
 	[SerializeField] PageModifier modifier;
-	[SerializeField] float modifierChance = 0.5f;
+
+	int pageIndex => transform.GetSiblingIndex();
+
+	[field: SerializeField, ReadOnly] // this works as of 6.3 btw :) -- only for auto-properties
+	public bool IsCurrentPage { get; private set; }
+
+	public event Action<PageModifier> BecameActive;
+
+	public void SetCurrentPage(bool active = true)
+	{
+		IsCurrentPage = active;
+		if (active) BecameActive?.Invoke(modifier);
+	}
 
 #if UNITY_EDITOR
 	[Button, UsedImplicitly]
@@ -21,7 +35,17 @@ public class Page : MonoBehaviour
 
 	[Button] [UsedImplicitly]
 	void Tape() => SetModifier(Resources.Load<PageModifier>("Page Modifiers/Taped"), true, true);
+
+	[Button] [UsedImplicitly]
+	void Advertisement()
+	{
+		SetModifier(Resources.Load<PageModifier>("Page Modifiers/Advertisement"), true, true);
+		if (IsCurrentPage) transform.GetChild(0).gameObject.SetActive(true);
+	}
 	
+	[Button] [UsedImplicitly]
+	void Paywall() => SetModifier(Resources.Load<PageModifier>("Page Modifiers/Paywall"), true, true);
+
 	/// <summary>
 	/// Sets the page modifier for debugging purposes.
 	/// </summary>
@@ -32,25 +56,45 @@ public class Page : MonoBehaviour
 	{
 		if (overwrite) transform.DestroyAllChildren();
 		modifier = newModifier;
-		if (applyImmediately) modifier?.Apply(gameObject);
+		if (applyImmediately) modifier?.Apply(this);
+
+		name = $"Page {pageIndex} | \"{texture.name}\" ({(modifier != null ? modifier.name : "None")})";
 	}
 #endif
+	
+	public void SetModifier(PageModifier newModifier)
+	{
+		transform.DestroyAllChildren();
+		modifier = newModifier;
+	}
+
+	/// <summary>
+	///     Clears the current page modifier.
+	///     <remarks> Destroys all children!! </remarks>
+	/// </summary>
+	public void ClearModifier()
+	{
+		transform.DestroyAllChildren();
+		modifier = null;
+	}
 
 	public PageModifier Modifier => modifier;
 
-	public void SetRandomModifier()
+	public bool SetRandomModifier(out PageModifier newModifier)
 	{
 		PageModifier[] modifiers = Resources.LoadAll<PageModifier>("Page Modifiers");
 
-		if (Random.value < modifierChance)
-		{
-			modifier = null;
-			return;
-		}
-
 		PageModifier randomModifier = modifiers.Length > 0 ? modifiers[Random.Range(0, modifiers.Length)] : null;
 
+		if (randomModifier?.ModifierChance < Random.value)
+		{
+			newModifier = null;
+			return false;
+		}
+
 		modifier = randomModifier;
+		newModifier = modifier;
+		return true;
 	}
 }
 

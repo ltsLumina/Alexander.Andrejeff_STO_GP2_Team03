@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a03abd99019447d4bd059331fd872960, type: 3}
   m_Name: Ripped
   m_EditorClassIdentifier: Assembly-CSharp::RippedModifier
-  modifierTexture: {fileID: 2800000, guid: fef7f90b921831941b2f74331a170501, type: 3}
+  prefab: {fileID: 5045793339538791324, guid: 417fd6c299b4edd42b55727c50998ac4, type: 3}
+  maxInstances: 5
+  modifierChance: 0.5

@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eded755f7514878bbe9ea750f913252, type: 3}
   m_Name: Taped
   m_EditorClassIdentifier: Assembly-CSharp::TypeModifier
-  modifierTexture: {fileID: 2800000, guid: ece6010bf36b6a74390c498a83b263f0, type: 3}
+  prefab: {fileID: 5045793339538791324, guid: cd96322c74ad3634d85c8bde9b092f18, type: 3}
+  maxInstances: 0
+  modifierChance: 0.5

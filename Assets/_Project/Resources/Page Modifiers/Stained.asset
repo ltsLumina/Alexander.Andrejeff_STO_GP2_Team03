@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e067195f78d3477cb9bed8e57edebca3, type: 3}
   m_Name: Stained
   m_EditorClassIdentifier: Assembly-CSharp::StainedModifier
-  stainTexture: {fileID: 2800000, guid: f54e8676fab686f419b105d36a5672ad, type: 3}
+  prefab: {fileID: 5045793339538791324, guid: 57701b9caed366945bfb84f19bfe68d2, type: 3}
+  maxInstances: 3
+  modifierChance: 0.5

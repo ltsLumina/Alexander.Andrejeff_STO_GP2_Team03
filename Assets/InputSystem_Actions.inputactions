@@ -25,36 +25,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GameClick",
+                    "name": "SwitchPage",
                     "type": "Button",
-                    "id": "438c3ca0-c86e-40b0-8ee2-e50a2b125873",
+                    "id": "1b669f2c-6176-4397-ab91-812f2a35cd10",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SecondClick",
+                    "name": "ToggleManual",
                     "type": "Button",
-                    "id": "ab6d67d6-0fdb-4d8d-ba6d-fd6cba95a40e",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Scroll",
-                    "type": "Value",
-                    "id": "7e0233c9-ad4e-4d07-a084-040c91f58bfc",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Rotate",
-                    "type": "Button",
-                    "id": "dc45eec1-825f-4bba-ba3a-33592f8d2da9",
+                    "id": "eba98f26-38bc-44d5-ae58-7b978fecd066",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -217,46 +199,46 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "84fbf7eb-100d-45e8-a672-fa9485343925",
-                    "path": "<Mouse>/leftButton",
+                    "name": "1D Axis",
+                    "id": "fd01a5e6-d4c6-4cd6-b6c5-47e7a0ff1f74",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "GameClick",
-                    "isComposite": false,
+                    "groups": "",
+                    "action": "SwitchPage",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "9afdf7a3-fadf-4a5e-8654-190ac2749ce0",
-                    "path": "<Mouse>/rightButton",
+                    "name": "negative",
+                    "id": "ee49af52-5d05-4841-bb51-413849bc715c",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "SecondClick",
+                    "action": "SwitchPage",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "aa460ffb-20fb-45bb-968d-6a72687c5726",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "SwitchPage",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "d91caa26-594f-43ba-933c-c371e64b5bf8",
-                    "path": "<Mouse>/scroll",
+                    "id": "f88c50fe-4084-45b5-be2d-8eca1d045911",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Scroll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "90ca5afb-cdf0-42e5-a120-37b957e9efde",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Rotate",
+                    "action": "ToggleManual",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -773,6 +755,162 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Build",
+            "id": "fd394fa6-d958-4521-8519-fd9503daec09",
+            "actions": [
+                {
+                    "name": "Rotate_1",
+                    "type": "Button",
+                    "id": "2533dfe2-0b0c-4c4c-adba-6a5b6600c238",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate_2",
+                    "type": "Button",
+                    "id": "2dc6e93b-61c5-4786-aa4c-69e12182f71b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ResetRotate",
+                    "type": "Button",
+                    "id": "64d93935-9394-4709-b060-a312c8176b2e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BuildLeftClick",
+                    "type": "Button",
+                    "id": "244afa8c-e2ba-455e-9563-fc7168ad5ca2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BuildRightClick",
+                    "type": "Button",
+                    "id": "e140a2f4-e1f6-44cf-ac0b-593405c0131f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BuildLeftRelease",
+                    "type": "Button",
+                    "id": "523b6dea-40d4-44b2-ad38-cc8f6007bf53",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e32ca7cd-60a9-4476-aaf8-1358a243597f",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate_1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "12c75427-8cee-4fb9-a55d-ca3ba7bb2a1e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Rotate_2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85ed8966-ab4f-4069-a579-4428155caae7",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ResetRotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "48b685df-a83b-419e-ae26-16a49c08cecc",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "BuildLeftClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "682bedd6-75d9-4aa8-a550-98c29c801d51",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "BuildRightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f82b5fb3-76d0-4d9d-921c-eef5a2716684",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "BuildLeftRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Info",
+            "id": "f35a14bf-f596-479e-bf05-b224fad273aa",
+            "actions": [
+                {
+                    "name": "Hide_Info",
+                    "type": "Button",
+                    "id": "d14461f9-0ecd-4c88-ac52-692c06b1a1f5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "51b00020-de7d-475e-b4f4-8359c435d99d",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Hide_Info",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

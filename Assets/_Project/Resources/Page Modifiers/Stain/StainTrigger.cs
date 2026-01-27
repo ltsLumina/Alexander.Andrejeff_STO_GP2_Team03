@@ -1,5 +1,4 @@
 #region
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 #endregion
@@ -17,20 +16,17 @@ public class StainTrigger : MonoBehaviour
 
 	public void Click()
 	{
+		if (currentClicks >= 3) Destroy(gameObject);
+	}
+
+	public void PointerEnter()
+	{
 		currentClicks++;
+		
+		var rectTransform = image.rectTransform;
+		Vector2 bounds = new Vector2(960, 1080);
 
-		switch (currentClicks)
-		{
-			case < 3: {
-				Color color = image.color;
-				color.a -= 0.15f;
-				image.color = color;
-				break;
-			}
-
-			case >= 3:
-				image.CrossFadeAlpha(0, 0.25f, false);
-				break;
-		}
+		// random position within bounds
+		rectTransform.anchoredPosition = new Vector2(UnityEngine.Random.Range(-bounds.x, bounds.x), UnityEngine.Random.Range(-bounds.y, bounds.y));
 	}
 }

@@ -4,47 +4,35 @@ using Lumina.Essentials.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lumina.Essentials.Modules.Singleton;
 using UnityEngine;
 using UnityEngine.InputSystem;
 #endregion
 
-public class InputManager : MonoBehaviour
+public class InputManager : SingletonPersistent<InputManager>
 {
-    [SerializeField, ReadOnly] Vector2 moveInput;
-
-    public Vector2 MoveInput => moveInput;
+    [Header("References")]
+    [field: SerializeField] public PlayerInput PlayerInput { get; private set; }
     
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        moveInput = context.ReadValue<Vector2>();
-    }
+    #region ACTION MAPS
     
-    // public void OnInteract(InputAction.CallbackContext context)
-    // {
-    //     if (context.performed)
-    //     {
-    //         Ray ray = Helpers.CameraMain.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-    //         float maxDistance = 3f;
-    //         float radius = 0.5f;
-    //
-    //         if (Physics.SphereCast(ray, radius, out RaycastHit hitInfo, maxDistance, LayerMask.GetMask("Hit")))
-    //         {
-    //             if (hitInfo.collider.TryGetComponent(out IInteractable interactable))
-    //             {
-    //                 interactable.Interact();
-    //                 Logger.Log($"Interacted with {hitInfo.collider.name}", this, "Interact");
-    //             }
-    //         }
-    //
-    //         Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.green, 1f);
-    //     }
-    // }
+    public InputActionMap PlayerActionMap => PlayerInput.actions.FindActionMap("Player");
+    public InputActionMap UIActionMap => PlayerInput.actions.FindActionMap("UI");  
+    public InputActionMap BuildActionMap => PlayerInput.actions.FindActionMap("Build");
 
-    public void OnPause(InputAction.CallbackContext context)
+    public InputActionMap InfoActionMap => PlayerInput.actions.FindActionMap("Info");
+    
+    #endregion
+    
+    #region UNITY METHODS
+    
+    private void Start()
     {
-        if (context.performed)
-        {
-            
-        }
+        PlayerActionMap.Enable();
+        UIActionMap.Enable();
+        BuildActionMap.Enable();
+        InfoActionMap.Enable();
     }
+
+    #endregion
 }
